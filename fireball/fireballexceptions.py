@@ -1,0 +1,2 @@
+class FireballException(Exception):
+    pass

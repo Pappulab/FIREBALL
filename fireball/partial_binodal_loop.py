@@ -122,7 +122,7 @@ def partial_binodal_loop(mode, regime, data_array, crit_phi, crit_var,
                 # The data points are above the UCST, so we calculate their distance from
                 # the critical point to measure pseudo-residuals.
                 residuals += (np.log10(data_array[i][0] / crit_phi)) ** 2
-                residuals += (np.log10((data_array[i][1] - crit_var) / 2)) ** 2
+                residuals += ((data_array[i][1] - crit_var) / 10) ** 2
                 relative_size += 1
                 i += 1
                 continue
@@ -160,6 +160,7 @@ def partial_binodal_loop(mode, regime, data_array, crit_phi, crit_var,
                 # The data points are below the LCST, so we calculate their distance from
                 # the critical point to measure pseudo-residuals.
                 residuals += (np.log10(data_array[i][0] / crit_phi)) ** 2
+                residuals += ((data_array[i][1] - crit_var) / 10) ** 2
                 relative_size += 1
                 i += 1
                 continue
@@ -207,7 +208,7 @@ def partial_binodal_loop(mode, regime, data_array, crit_phi, crit_var,
             dense_high_bound_3 = theory_class.cur_max
             dense_high_bound = np.min([dense_high_bound_1, dense_high_bound_2, dense_high_bound_3])
             bounds = ((dense_low_bound, dense_high_bound), (10 ** -12, dilute_high_bound))
-            x0 = [(dense_low_bound + dense_high_bound) / 2, dilute_high_bound * 0.95]
+            x0 = [(dense_low_bound + 1) / 5, dilute_high_bound * 0.9]
         else:
             # Put together the values and functions needed to calculate the binodal point
             spinodal_function_phi = theory_class.build_spinodal_function_phi(current_var)

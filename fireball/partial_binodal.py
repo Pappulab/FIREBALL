@@ -213,7 +213,7 @@ def residual_finder(free_parameter_list, fixed_parameter_list, free_parameter_ch
         full_var_array.extend(full_dict[key]['var'])
         full_error_array.extend(full_dict[key]['error'])
     full_residuals /= full_length
-    print("Normalized Residuals: %s" %(str(10 ** np.sqrt(full_residuals))))
+    print("Normalized Residuals: %s" %(str(full_residuals)))
     if error:
         print("Error List: " + ', '.join([str(err) for err in full_error_array]))
     

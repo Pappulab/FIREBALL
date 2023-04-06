@@ -118,7 +118,7 @@ if __name__=="__main__":
             else:
                 full_parameter_list.append(init_guess[index])
 	    
-        if args.mode == 'GCT_single_chain':
+        if args.mode == 'GCT_Single_Chain':
             theta = full_parameter_list[0]
             v2 = full_parameter_list[1]
             v3 = full_parameter_list[2]

@@ -129,7 +129,7 @@ def residual_finder(free_parameter_list, fixed_parameter_list, free_parameter_ch
         full_length += 1
         full_residuals += (rg - data_point[1]) ** 2
     full_residuals /= full_length
-    print("Normalized Residuals: %s" %(str(np.sqrt(full_residuals))))
+    print("Mean-square residuals: %s" %(str(full_residuals)))
     
     # plotter is an argument for this function
     # The partial coil-globule transition is plotted along with the data if plotter == 1

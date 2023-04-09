@@ -126,8 +126,8 @@ if __name__=="__main__":
 
             # write out fitting info
             with open(outname_fitfile,'a+') as fp:
-                fh.write('name, theta, v2, v3, n, residuals\n')
-                fh.write('%s, %4.4f, %4.4f, %4.4f, %4.4f, %4.4f\n'%(outname, theta, v2, v3, n, fit_obj.fun))
+                fp.write('name, theta, v2, v3, n, residuals\n')
+                fp.write('%s, %4.4f, %4.4f, %4.4f, %4.4f, %4.4f\n'%(outname, theta, v2, v3, n, fit_obj.fun))
 
         # finally generate full coil to globule transition!
         full_single_chain.coil_globule_maker(full_parameter_list, mode, data_array, temperature_offset=temperature_offset, increment=increment, outname=outname, plotter=plotter)

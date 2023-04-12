@@ -9,7 +9,7 @@ As of right now FIREBALL can be installed from the `github` repository. Specific
 
 1. Cloning the repo locally - i.e.
 
-		git clone git@github.com:pappulab/fireball.git
+		git clone https://github.com/Papplab/FIREBALL.git
 		
 2. Move into the main FIREBALL directory  (where `setup.py` is) and run
 

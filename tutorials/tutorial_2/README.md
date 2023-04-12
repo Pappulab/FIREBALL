@@ -7,7 +7,7 @@ This tutorial walks through the process of fitting Gaussian cluster theory to a 
 ## Tutorial
 From the command-line, `cd` into this directory. Next, enter the following command:
 
-`fireball-fit --filename WT_A1LCD.xls --mode GCT --free_param_list 1_1_1_1 --initial_guess 460_0.0168_0.00632_1944`
+`fireball-fit --filename WT_A1LCD.xls --mode GCT --free_param_list 1_1_1_1 --initial_guess 460_0.0168_0.00632_2000`
 
 Here, `fireball-fit` is the script used for fitting binodals. `--filename WT_A1LCD.xls` tells the program which file the data are in. `--mode GCT` tells the program to use Gaussian cluster theory. `--free_param_list 1_1_1_1` tells the program that `theta`, `w2`, `w3`, and `n` are all free parameters. `--initial_guess ` tells the program how to initialize the values for `theta`, `w2`, `w3`, and `n`.
 

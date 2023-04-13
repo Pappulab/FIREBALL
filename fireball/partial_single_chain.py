@@ -16,7 +16,8 @@ from .fireballexceptions import FireballException
 from . import config
 
 def residual_finder(free_parameter_list, fixed_parameter_list, free_parameter_checklist,
-                    mode, data_array, temperature_offset, plotter=False, error=False, title=''):
+                    mode, data_array, temperature_offset, silent = False, plotter=False,
+                    error=False, title=''):
     """
 
     This program is used to construct a partial coil-globule transition using a given set
@@ -57,6 +58,10 @@ def residual_finder(free_parameter_list, fixed_parameter_list, free_parameter_ch
         Converts the y-axis units when plotting the data. Should be set to 273.15 to convert the units
         from Kelvin to degrees Celsius. Should bet set to 0 to keep the units in Kelvin.
 
+    silent : bool
+        Flag which, if set to false, means that the function will print the current parameters
+        and mean-square-residuals to screen. Default = False.
+
     plotter : bool
         Flag which, if set to true, means that the partial coil-globule transition fit
         is plotted to screen (only). Useful when debugging a fit, but in general
@@ -93,7 +98,8 @@ def residual_finder(free_parameter_list, fixed_parameter_list, free_parameter_ch
         else:
             parameter_list.append(fixed_parameter_list[counter_fixed])
             counter_fixed += 1
-    print('Current parameter list is ' + str(parameter_list))
+    if not silent:
+        print('Current parameter list is ' + str(parameter_list))
     
     # Create an instantiation of theory class with the desired parameters and initialize
     # the required variables
@@ -129,7 +135,8 @@ def residual_finder(free_parameter_list, fixed_parameter_list, free_parameter_ch
         full_length += 1
         full_residuals += (rg - data_point[1]) ** 2
     full_residuals /= full_length
-    print("Mean-square residuals: %s" %(str(full_residuals)))
+    if not silent:
+        print("Mean-square residuals: %s" %(str(full_residuals)))
     
     # plotter is an argument for this function
     # The partial coil-globule transition is plotted along with the data if plotter == 1

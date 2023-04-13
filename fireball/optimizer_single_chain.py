@@ -88,7 +88,7 @@ def optimizer(mode,
     # The parameters worth noting are "method," which by default is Nelder-Mead (a gradient-free method
     # with fast convergence) and the options, which are specific to the method 
     if not silent:
-        print('Starting fitting...')
+        print('Starting fitting...\n')
     
     free_parameter_list = []
     fixed_parameter_list = []
@@ -110,6 +110,63 @@ def optimizer(mode,
                     temperature_offset), method = fitting_method, bounds = bounds_list,
                    options={'maxfev': maxfev, 'xatol': xatol, 'fatol': fatol})
 
+    if fitting_method == 'Nelder-Mead':
+        print('\nEstimating covariance matrix...')
+        
+        final_simplex = fit.final_simplex
+        final_params = final_simplex[0]
+        final_funcs = final_simplex[1]
+        final_centroid = np.mean(final_params, axis = 0)
+        final_centroid_func = partial_single_chain.residual_finder(final_centroid, fixed_parameter_list, free_parameter_checklist, mode, data_array, temperature_offset, silent=True)
+        threshold = final_centroid_func + final_centroid_func * .01
+        new_params = final_simplex[0]
+        num_params = len(free_parameter_list)
+        num_vertices = num_params + 1
+        new_funcs = np.zeros(num_params + 1)
+        
+        threshold_check = True
+        while threshold_check:
+            threshold_check = False
+            new_params = new_params + 2 * (new_params - final_centroid)
+            for index, param_set in enumerate(new_params):
+                new_funcs[index] = partial_single_chain.residual_finder(param_set, fixed_parameter_list, free_parameter_checklist, mode, data_array, temperature_offset, silent=True)
+            for new_func in new_funcs:
+                if new_func < threshold:
+                    threshold_check = True
+        
+        new_params_array = [[] for i in range(num_vertices)]
+        new_func_matrix = np.zeros((num_vertices, num_vertices))
+        for i in range(num_vertices):
+            for j in range(i + 1):
+                new_params_array[i].append(np.mean([new_params[i], new_params[j]], axis = 0))
+                new_func_matrix[i, j] = partial_single_chain.residual_finder(new_params_array[i][j], fixed_parameter_list, free_parameter_checklist, mode, data_array, temperature_offset, silent=True)
+        
+        a0 = new_func_matrix[0, 0]
+        a_vector = np.zeros(num_params)
+        for i in range(num_params):
+            a_vector[i] = 2 * new_func_matrix[i + 1, 0] - 0.5 * (new_func_matrix[i + 1, i + 1] + 3 * new_func_matrix[0, 0])
+        
+        b_matrix = np.zeros((num_params, num_params))
+        for i in range(num_params):
+            for j in range(num_params):
+                if j > i:
+                    b_matrix[i, j] = 2 * (new_func_matrix[j + 1, i + 1] + new_func_matrix[0, 0] - new_func_matrix[i + 1, 0] - new_func_matrix[j + 1, 0])
+                else:
+                    b_matrix[i, j] = 2 * (new_func_matrix[i + 1, j + 1] + new_func_matrix[0, 0] - new_func_matrix[i + 1, 0] - new_func_matrix[j + 1, 0])
+        b_inv_matrix = np.linalg.inv(b_matrix)
+        
+        q_matrix = np.zeros((num_params, num_params))
+        for i in range(num_params):
+            for j in range(num_params):
+                q_matrix[j, i] = new_params[i + 1][j] - new_params[0][j]
+        
+        c_matrix = np.matmul(np.matmul(q_matrix, b_inv_matrix), np.transpose(q_matrix))
+        
+        y_min = a0 - np.matmul(np.matmul(a_vector, b_inv_matrix), np.transpose(a_vector))
+        num_points = data_array.shape[0]
+        sigma2 = y_min / (num_points - num_params)
+        c_matrix_final = c_matrix * 2 * sigma2
+
     # If silent is true then do nothing
     if not silent:
 
@@ -119,7 +176,9 @@ def optimizer(mode,
         print('\n=======================================')
         print('Summary of fitting procedure:')
         print(fit)
-        print('\n=======================================')
+        print('\nEstimated covariance matrix:')
+        print(c_matrix_final)
+        print('=======================================')
 
         # This line plots our data along with the last partial coil-globule transition produced
         # during the fitting process in order to make sure that the residuals were calculated correctly.

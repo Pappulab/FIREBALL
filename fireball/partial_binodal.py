@@ -19,7 +19,7 @@ from . import config
 
 def residual_finder(free_parameter_list, fixed_parameter_list, free_parameter_checklist,
                     mode, regime, dilute_array, dense_array, temperature_offset,
-                    plotter=False, error=False, title=''):
+                    silent = False, plotter=False, error=False, title=''):
     """
 
     This program is used to construct a partial binodal using a given set of parameters and a
@@ -83,6 +83,10 @@ def residual_finder(free_parameter_list, fixed_parameter_list, free_parameter_ch
         Converts the y-axis units when plotting the data. Should be set to 273.15 to convert the units
         from Kelvin to degrees Celsius. Should bet set to 0 to keep the units in Kelvin.
 
+    silent : bool
+        Flag which, if set to false, means that the function will print the current parameters
+        and mean-square-log-residuals to screen. Default = False.
+
     plotter : bool
         Flag which, if set to true, means that the partial binodal fit is plotted to screen
         (only). Useful when debugging a fit, but in general not necessary. Default = False.
@@ -121,7 +125,8 @@ def residual_finder(free_parameter_list, fixed_parameter_list, free_parameter_ch
         else:
             parameter_list.append(fixed_parameter_list[counter_fixed])
             counter_fixed += 1
-    print('Current parameter list is ' + str(parameter_list))
+    if not silent:
+        print('Current parameter list is ' + str(parameter_list))
     
     # Calculate the critical point. Method varies depending on the theory used
     if mode == 'GCT':
@@ -213,7 +218,8 @@ def residual_finder(free_parameter_list, fixed_parameter_list, free_parameter_ch
         full_var_array.extend(full_dict[key]['var'])
         full_error_array.extend(full_dict[key]['error'])
     full_residuals /= full_length
-    print("Mean-square-log residuals: %s" %(str(full_residuals)))
+    if not silent:
+        print("Mean-square-log of residuals: %s" %(str(full_residuals)))
     if error:
         print("Error List: " + ', '.join([str(err) for err in full_error_array]))
     

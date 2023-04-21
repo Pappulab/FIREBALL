@@ -11,7 +11,7 @@ dilute_first_phi = 0.00001
 dense_first_phi = 0.000001
 dilute_intermediate_increment = 0.1
 dense_intermediate_increment = 0.005
-partial_binodal_increment = 10
+partial_binodal_increment = 1
 
 # The y-variable for our phase diagrams.
 y_variable = 'Temperature'

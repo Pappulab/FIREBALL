@@ -41,21 +41,39 @@ setup(
     # Comment out this line to prevent the files from being packaged with your software
     include_package_data=True,
 
+    install_requires=[
+        'matplotlib',
+        'pandas',
+        'numpy',
+        'scipy',
+        'seaborn',
+        'PyYAML'
+    ],
+
     # Allows `setup.py test` to work correctly with pytest
     setup_requires=[] + pytest_runner,
-    scripts=['scripts/fireball-draw', 'scripts/fireball-fit',
-             'scripts/fireball-single-chain-draw', 'scripts/fireball-single-chain-fit'], 
+
+    # This provides an OS-agnostic means of installing executable scripts.
+    entry_points = {
+        'console_scripts': [
+            'fireball-draw = fireball.scripts.fireball_draw:main',
+            'fireball-fit = fireball.scripts.fireball_fit:main',
+            'fireball-single-chain-draw = fireball.scripts.fireball_draw:main',
+            'fireball-single-chain-fit = fireball.scripts.fireball_single_chain_fit:main',
+        ],
+    },
 
     # Additional entries you may want simply uncomment the lines you want and fill in the data
-    # url='http://www.my_package.com',  # Website
-    # install_requires=[],              # Required packages, pulls from pip if needed; do not use for Conda deployment
-    # platforms=['Linux',
-    #            'Mac OS-X',
-    #            'Unix',
-    #            'Windows'],            # Valid platforms your code works on, adjust to your flavor
-    # python_requires=">=3.5",          # Python version restrictions
+    url='https://github.com/Pappulab/FIREBALL',  # Website
+
+    platforms=['Linux',
+               'Mac OS-X',
+               'Unix',
+               'Windows'],            # Valid platforms your code works on, adjust to your flavor
+
+    python_requires=">=3.5",          # Python version restrictions
 
     # Manual control if final package is compressible or not, set False to prevent the .egg from being made
-    # zip_safe=False,
+    zip_safe=True,
 
 )

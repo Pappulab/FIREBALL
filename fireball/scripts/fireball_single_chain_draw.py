@@ -4,7 +4,7 @@
 
 import os
 import warnings
-import argparse 
+import argparse
 import numpy as np
 
 import fireball
@@ -18,13 +18,12 @@ def startup():
 ##                              Main Script - hold onto your hat!
 ## ===================================================================================================
 
-if __name__=="__main__":
-    
+def main():
     # this builds the parser object, which we'll use to add in command-line options
     parser = argparse.ArgumentParser()
-    
+
     # this is where command-line options are defined
-    parser.add_argument("--filename", help="[OPTIONAL] Input file with information for plotting data") 
+    parser.add_argument("--filename", help="[OPTIONAL] Input file with information for plotting data")
     parser.add_argument("--param_list", help="[OPTIONAL] parameter values (format X_Y_Z where X,Y,Z depend on the fitting procedure. Run --fitting-info for more) [Default = 345_.02_.0076_3000]",  default = "345_.02_.0076_3000")
     parser.add_argument("--temperature-offset", help="[OPTIONAL] Value that defines the temperature offset for plotting [default = 273.15, assumes data should be plotted in Celsius]", default='273.15')
     parser.add_argument("--LCST-check", help="[OPTIONAL] Flag which, if set to true, tells the algorithm that this is a lower critical system (default = False)", action='store_true')
@@ -32,8 +31,8 @@ if __name__=="__main__":
     parser.add_argument("--mode", help="[OPTIONAL] Defines the fitting mode to be used. Valid options are: GCT_Single_Chain [default=GCT_Single_Chain]", default='GCT_Single_Chain')
     parser.add_argument("--outname", help="[OPTIONAL] Name of output file where single chain data are written", default='single-chain.csv')
     parser.add_argument("--noplot", help="Flag which, if provided, means no figure is generated to screen but the single chain data are just saved to disk", action='store_true')
-    parser.add_argument("--version", help="Flag which, if set to true, prints software version and exits the program", action='store_true')    
-    
+    parser.add_argument("--version", help="Flag which, if set to true, prints software version and exits the program", action='store_true')
+
     args = parser.parse_args()
 
     if args.version:
@@ -42,7 +41,7 @@ if __name__=="__main__":
 
     # Mode specific stuff in terms of input options can happen here
     if args.mode == 'GCT_Single_Chain':
-        
+
         parameter_list = [float(x) for x in args.param_list.split('_')]
 
         if len(parameter_list) != 4:
@@ -68,7 +67,7 @@ if __name__=="__main__":
     else:
         regime = 'low'
 
-    if args.filename:        
+    if args.filename:
         data_array = io_single_chain.read_file(args.filename)
     else:
         data_array = None
@@ -79,3 +78,7 @@ if __name__=="__main__":
         plotter = True
 
     full_single_chain.coil_globule_maker(parameter_list, mode, data_array, temperature_offset=temperature_offset, increment=increment, outname=outname, plotter=plotter)
+
+
+if __name__=="__main__":
+    main()

@@ -43,10 +43,10 @@ Note that a header line matching this is required, and then each subsequent line
 For example, a valid `.csv` file might look like:
 
 	Temp, Dense, Dilute, Dense_Error, Dilute_Error
-	277.15, , 0.169, , 0.003,
-	278.15, 393, 0.177, , 0.004,
-	279.15, , 0.207, , 0.004,
-	281.15, , 0.304, , 0.004,
+	277.15, , 0.169, , 0.003
+	278.15, 393, 0.177, , 0.004
+	279.15, , 0.207, , 0.004
+	281.15, , 0.304, , 0.004
 
 #### Input options
 `fireball-fit` offers the following command line options:

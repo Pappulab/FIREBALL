@@ -17,8 +17,8 @@ As of right now FIREBALL can be installed from the `github` repository. Specific
 		
 This will install FIREBALL locally. Alternatively, you can run
 
-		pip install -e .
-		
+	pip install -e .
+  
 This will install FIREBALL locally but link to this specific location of the code, so changes made are instantaneously reflected in the global install
 
 ## Command-line usage

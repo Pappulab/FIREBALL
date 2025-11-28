@@ -1,17 +1,25 @@
 FIREBALL (FItting REal BinodALs with non-Linear models)
 ==============================
+##### Last updated November 2025
 
 ## About
 A general-purpose Python package for fitting and building phase diagrams. Also includes methods for fitting coil-to-globule transitions.
 
 ## Installation
-As of right now FIREBALL can be installed from the `github` repository. Specifically, this involves;
+As of right now, FIREBALL can be installed from the `GitHub` repository. 
+
+This can be done directly using
+
+
+	pip install git+https://github.com/Pappulab/FIREBALL.git
+	
+Alternatively, you can locally copy the code ("clone" the GitHub repo) and install from there:	
 
 1. Cloning the repo locally - i.e.
 
 		git clone https://github.com/Papplab/FIREBALL.git
 		
-2. Move into the main FIREBALL directory  (where `setup.py` is) and run
+2. Move into the main FIREBALL directory  (where `pyproject.toml` is) and run
 
 		pip install .
 		
@@ -22,14 +30,14 @@ This will install FIREBALL locally. Alternatively, you can run
 This will install FIREBALL locally but link to this specific location of the code, so changes made are instantaneously reflected in the global install
 
 ## Command-line usage
-Fireball comes with multiple command-line tools. The two main tools used for plotting binodal data are `fireball-fit` and `fireball-draw`. There are also two tools used for plotting single chain coil-to-globule transitions, which are `fireball-single-chain-fit` and `fireball-single-chain-draw`
+Fireball comes with multiple command-line tools. The two main tools used for plotting binodal data are `fireball-fit` and `fireball-draw`. There are also two tools used for plotting single-chain coil-to-globule transitions, which are `fireball-single-chain-fit` and `fireball-single-chain-draw`
 
 ### fireball-fit
 `fireball-fit` is the main command for fitting to binodals. The simplest usage is
 
 	fireball-fit --filename <name of csv or .xls file with dense/dilute phase data>
 	
-> **Note** `pandas` deprecated the ability to read `.xlsx` files late in 2020, hence the `.xls` requirement).
+> **Note** `pandas` deprecated the ability to read `.xlsx` files late in 2020, hence the `.xls` requirement.
 
 This will fit the provided dense/dilute phase using the default options (discussed below).
 
@@ -104,13 +112,13 @@ A few non-intuitive things:
 
 * Right now the only `--mode` options are `flory-huggins-3B`, which uses a modified version of Flory-Huggins theory, and `GCT`, which uses Gaussian Cluster theory. The Flory-Huggins theory is the same as that used in Martin et al. Science (2020). The Gaussian Cluster theory is based on Raos and Allegra. J Chem Phys (1996) and is well-described in Zeng et al. Biophysical Journal (2020).
 
-* By default, the first two parameters are free and third parameter is fixed. These correspond to w1, w3, and n, respectively. In general, the value of a fixed parameter is kept the same as whatever is passed to `--inital_guess`. For example, if `--inital_guess` is set to `200_0.01_150` and `--free_param_list` is set to `0_1_1` then w1 will be fixed at 200, whereas w3 and n will be free parameters but initialized at 0.1 and 150, respectively.
+* By default, the first two parameters are free, and the third parameter is fixed. These correspond to w1, w3, and n, respectively. In general, the value of a fixed parameter is kept the same as whatever is passed to `--inital_guess`. For example, if `--inital_guess` is set to `200_0.01_150` and `--free_param_list` is set to `0_1_1`, then w1 will be fixed at 200, whereas w3 and n will be free parameters but initialized at 0.1 and 150, respectively.
 
 * `--fitting-method` has only been tested with `Nelder-Mead`, so changing this flag may result in unexpected behavior.
 
 * `--version` prints the FIREBALL version, which means `--version` from all scripts will give the same version. Versioning is done automatically by git.
 
-As output this generates a few files. Assuming `--noplot` is not set, the function by default generates a plot to the screen and also saves the binodals in normal and semi-logspace (wrt phi) as PDFs. It will also save three `.csv` files, which by default are called `fit_binodal.csv`, `fit_spionodal.csv`, and `fit_params.csv`. These contain the binodal information, the spinodal information, and the summary of the fitted parameters, respectively.
+As output, this generates a few files. Assuming `--noplot` is not set, the function by default generates a plot to the screen and also saves the binodals in normal and semi-logspace (wrt phi) as PDFs. It will also save three `.csv` files, which are called `fit_binodal.csv`, `fit_spionodal.csv`, and `fit_params.csv` by default. These contain the binodal information, the spinodal information, and the summary of the fitted parameters, respectively.
 
 ### fireball-draw
 `fireball-draw` lets you build and plot the data for a phase diagram by passing in parameters directly (rather than fitting to data). 
@@ -221,7 +229,7 @@ For example, a valid `.csv` file might look like:
 	  --version             Flag which, if set to true, prints software version
 	  					  and exits the program
 
-As output this generates a few files. Assuming `--noplot` is not set, the function by default generates a plot to the screen and also saves the single chain data as a PDF. It will also save two `.csv` files, which by default are called `single-chain.csv` and `fit_params.csv`. These contain the single chain data and the summary of the fitted parameters, respectively.
+As output this generates a few files. Assuming `--noplot` is not set, the function by default generates a plot to the screen and also saves the single chain data as a PDF. It will also save two `.csv` files, which by default are called `single-chain.csv` and `fit_params.csv`. These contain the single-chain data and the summary of the fitted parameters, respectively.
 
 ### fireball-single-chain-draw
 `fireball-single-chain-draw` lets you build and plot the data for a single chain coil-to-globule transition by passing in parameters directly (rather than fitting to data). It functions similarly to `fireball-draw` with a few important differences outlined below.
@@ -283,13 +291,13 @@ In addition, FIREBALL also lets you work directly inside Python. For example:
 	plt.legend(frameon=False)
 
 ## Architecture and development
-General structure of the code is as follows:
+The general structure of the FIREBALL package is as follows:
 
 All source code can be found in 
 
 	fireball/
 
-All theoretical functions, such as Flory-Huggins free energy formulations can be found in 
+All theoretical functions, such as Flory-Huggins free energy formulations, can be found in 
 
 	fireball/theory
 
@@ -297,7 +305,7 @@ All configuration settings for FIREBALL can be found in
 
 	fireball/config.py
 
-In addition to optimization hyper-parameters, this module also tells FIREBALL the starting temperatures for calculating full binodals and how to label various plots. Depending on your system of interest, you may need to change some of the values in this module.
+In addition to optimization hyperparameters, this module also tells FIREBALL the starting temperatures for calculating full binodals and how to label various plots. Depending on your system of interest, you may need to adjust some values in this module.
 
 All command-line tools can be found in
 
@@ -306,14 +314,14 @@ All command-line tools can be found in
 This is where I recommend starting to read through the code.
 
 ### Tutorial
-We have included two short tutorials in this package to illustrate the process of fitting phase diagrams (tutorial 1) and coil-to-globule transitions (tutorial 2) in the `tutorials/` directory. Here, we will run through the process of fitting binodal data as an example to show how FIREBALL functions. After parsing input options the `fireball-fit` program does the following:
+We have included two short tutorials in this package to illustrate the process of fitting phase diagrams (tutorial 1) and coil-to-globule transitions (tutorial 2) in the `tutorials/` directory. Here, we will run through the process of fitting binodal data as an example to show how FIREBALL functions. After parsing input options, the `fireball-fit` program does the following:
 
 #### Stage 1 - fit the data
 It calls `optimizer.optimizer()`, which is the wrapper code for fitting binodal data. 
 
 `optimizer.optimizer()` is inside `fireball/optimizer.py`, which itself optimizes by applying `scipy.optimize.minimize` on the function `partial_binodal.residual_finder()`. 
 
-`partial_binodal.residual_finder()` is inside `fireball/partial_binodal.py` and takes as input a set of energy parameters and datapoints, calculates a theoretical binodal using the given parameters, and returns a rescaled sum of residuals between the calculated binodal and the datapoints to the `scipy.optimize.minimize` function. In so doing, this function calls `partial_binodal_loop.partial_binodal_loop()`. For now, the residuals are calculated using a log-scale, to take into account the fact that protein phase diagram concentrations typically change by orders of magnitude, but this can be changed if needed.
+`partial_binodal.residual_finder()` is inside `fireball/partial_binodal.py` and takes as input a set of energy parameters and datapoints, calculates a theoretical binodal using the given parameters, and returns a rescaled sum of residuals between the calculated binodal and the datapoints to the `scipy.optimize.minimize` function. In so doing, this function calls `partial_binodal_loop.partial_binodal_loop()`. For now, the residuals are calculated using a log scale to take into account the fact that protein phase diagram concentrations typically change by orders of magnitude, but this can be changed if needed.
 
 `partial_binodal_loop.partial_binodal_loop()` is inside `fireball/partial_binodal_loop.py` and does the heavy lifting to calculate the theoretical binodal. This function loads components of the actual physical model from `fireball/theory/flory_huggins_3B.py` (the default theory module).
 
@@ -329,10 +337,10 @@ New theories can be readily added to FIREBALL by creating a new file in the `fir
 Depending on the data and the initial parameters, it is possible that FIREBALL will not adequately calculate phase diagrams. Hopefully, Python spits out a reasonable error message that informs you of the issue. In general, you can take the following steps to try to troubleshoot the issue:
 
 ### Step 1: Change initial parameters
-First, change the initial parameters. Often, the initial parameters are either unphysical or too far from the optimized parameters for FIREBALL to function correctly. I recommend using `fireball-draw` to determine how the binodal calculated from your initial parameters compares to the data set in the absence of any fitting.
+First, change the initial parameters. Often, the initial parameters are either unphysical or too far from the optimized parameters for FIREBALL to function correctly. I recommend using `fireball-draw` to determine how the binodal calculated from your initial parameters compares to the data set, without any fitting.
 
 ### Step 2: Change the `config.py` module
-Second, if changing the initial parameters did not help, try modulating values in the `config.py` module. In particular, make sure that your starting binodal temperature is not too high or too low. The first five variable in this module may also be of interest, in particular "partial_binodal_increment", which may need to be decreased.
+Second, if changing the initial parameters did not help, try modulating values in the `config.py` module. In particular, ensure your starting binodal temperature is neither too high nor too low. The first five variables in this module may also be of interest, in particular "partial_binodal_increment", which may need to be decreased.
 
 ### Step 3: Change the bounds/initial guesses when calculating binodal values in `fireball/partial_binodal_loop.py`
 If the above steps did not help, it is possible that you will need to change the source code. Most likely, the algorithm is having trouble calculating correct binodal values in the `fireball/partial_binodal_loop.py` module. If this seems to be the case, I recommend playing with the initial guess and bound variables in this module. These are named "x0" and "bounds", respectively. Unfortunately, you will likely need to familiarize yourself with the code and understand the issue at hand to adequately change these variables. Depending on the issue, you may need to make similar changes in the `fireball/full_binodal.py` module to correctly calculate the full binodal at the end of the script.
@@ -346,4 +354,4 @@ Copyright (c) 2019-2025, Pappu lab
 
 #### Acknowledgements
  
-The FIREBALL code was written by Mina Farag and Alex Holehouse
+The FIREBALL code was written by Mina Farag and Alex Holehouse.

@@ -341,7 +341,7 @@ If the above steps did not help, it is possible that you will need to change the
 
 ### Copyright
 
-Copyright (c) 2019-2023, Pappu lab
+Copyright (c) 2019-2025, Pappu lab
 
 #### Acknowledgements
  

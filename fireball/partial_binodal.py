@@ -12,10 +12,10 @@ import numpy as np
 import pandas as pd
 from scipy import optimize
 
-from .fireballexceptions import FireballException
-from .partial_binodal_loop import partial_binodal_loop
-from .array_fixer import array_fixer
-from . import config
+from fireball.fireballexceptions import FireballException
+from fireball.partial_binodal_loop import partial_binodal_loop
+from fireball.array_fixer import array_fixer
+from fireball import config
 
 def residual_finder(free_parameter_list, fixed_parameter_list, free_parameter_checklist,
                     mode, regime, dilute_array, dense_array, temperature_offset,

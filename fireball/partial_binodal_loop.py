@@ -11,8 +11,8 @@ import importlib
 import numpy as np
 from scipy import optimize
 
-from .fireballexceptions import FireballException
-from . import config
+from fireball.fireballexceptions import FireballException
+from fireball import config
 
 
 def partial_binodal_loop(mode, regime, data_array, crit_phi, crit_var,

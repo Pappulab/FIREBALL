@@ -2,10 +2,7 @@
 
 ###############################################
 
-import os
-import warnings
 import argparse
-import numpy as np
 
 import fireball
 from fireball import optimizer_single_chain, full_single_chain, io_single_chain
@@ -134,7 +131,3 @@ def main():
     else:
         print('Unknown --mode flag passed')
         exit(1)
-
-
-if __name__=="__main__":
-    main()

@@ -8,7 +8,7 @@ Updated Spring 2021 by Alex Holehouse and Mina Farag
 
 import pandas as pd
 import numpy as np
-from . import fireballexceptions
+from fireball import fireballexceptions
 
 def read_file(filename):
     """

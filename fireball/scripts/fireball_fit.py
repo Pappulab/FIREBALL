@@ -2,10 +2,7 @@
 
 ###############################################
 
-import os
-import warnings
 import argparse
-import numpy as np
 
 import fireball
 from fireball import optimizer, full_binodal, io
@@ -158,6 +155,3 @@ def main():
         print('Unknown --mode flag passed')
         exit(1)
 
-
-if __name__=="__main__":
-    main()

@@ -2,10 +2,7 @@
 
 ###############################################
 
-import os
-import warnings
 import argparse
-import numpy as np
 
 import fireball
 from fireball import full_single_chain, io_single_chain
@@ -79,6 +76,3 @@ def main():
 
     full_single_chain.coil_globule_maker(parameter_list, mode, data_array, temperature_offset=temperature_offset, increment=increment, outname=outname, plotter=plotter)
 
-
-if __name__=="__main__":
-    main()

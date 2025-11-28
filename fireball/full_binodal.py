@@ -13,8 +13,8 @@ import pandas as pd
 import math
 from scipy import optimize
 
-from .fireballexceptions import FireballException
-from . import config
+from fireball.fireballexceptions import FireballException
+from fireball import config
 
 def build_theoretical_binodal(parameter_list, mode, regime):
     """

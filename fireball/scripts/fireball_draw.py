@@ -2,8 +2,6 @@
 
 ###############################################
 
-import os
-import warnings
 import argparse
 import numpy as np
 
@@ -88,7 +86,3 @@ def main():
         plotter = True
 
     full_binodal.binodal_maker(parameter_list, mode, regime, dilute_array, dense_array, temperature_offset=temperature_offset, increment=increment, outname=outname, plotter=plotter)
-
-
-if __name__=="__main__":
-    main()

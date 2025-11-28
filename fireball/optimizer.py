@@ -9,7 +9,7 @@ Updated Spring 2021 by Alex Holehouse and Mina Farag
 import numpy as np
 import pandas as pd
 from scipy.optimize import minimize
-from . import partial_binodal, io
+from fireball import partial_binodal, io
 import time
 
 # Function optimizer performs the optimization

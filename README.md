@@ -337,7 +337,8 @@ Second, if changing the initial parameters did not help, try modulating values i
 ### Step 3: Change the bounds/initial guesses when calculating binodal values in `fireball/partial_binodal_loop.py`
 If the above steps did not help, it is possible that you will need to change the source code. Most likely, the algorithm is having trouble calculating correct binodal values in the `fireball/partial_binodal_loop.py` module. If this seems to be the case, I recommend playing with the initial guess and bound variables in this module. These are named "x0" and "bounds", respectively. Unfortunately, you will likely need to familiarize yourself with the code and understand the issue at hand to adequately change these variables. Depending on the issue, you may need to make similar changes in the `fireball/full_binodal.py` module to correctly calculate the full binodal at the end of the script.
 
-## Development
+## Changelog
+* **November 2025**: Updated package organization to use `pyproject.toml` instead of `setup.py` and [versioningit](https://versioningit.readthedocs.io/en/stable/) instead of [versioneer](https://pypi.org/project/versioneer/), enabling compatibility with Python 3.12 and beyond.
 
 ### Copyright
 

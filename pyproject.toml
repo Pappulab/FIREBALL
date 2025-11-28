@@ -1,0 +1,80 @@
+[build-system]
+
+# setup requirements for setup
+requires = ["setuptools>=61", "versioningit~=2.0"]
+build-backend = "setuptools.build_meta"
+
+
+# define project info
+[project]
+name = "fireball"
+dynamic = ["version"]
+description = "A general-purpose Python package for fitting and building phase diagrams. Also includes methods for fitting coil-to-globule transitions."
+authors = [
+    {name = "Mina Farag", email = "minafarag@wustl.edu"}, {name = "Alex Holehouse", email = "alex.holehouse@wustl.edu"},
+]
+
+license = "LGPL-3.0-or-later" # make sure this matches the license-files
+# example: license = "GPL-3.0-only"
+# example:  license = "MIT"
+license-files = ["LICENSE"]     
+
+readme = "README.md"  
+requires-python = ">=3.7"
+
+# add in as needed  
+dependencies = [      
+    "numpy",
+    "scipy",
+	"matplotlib",
+	"pandas",
+	"seaborn",
+	"PyYAML"
+	
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest>=6.1.2",
+]
+
+# define all the command-line scripts; example left, but you
+# can delete this section if none. This assumes your code with 
+# CLI scripts is in a directory called scripts 
+[project.scripts]
+fireball-fit = "fireball.scripts.fireball_fit:main"
+fireball-draw = "fireball.scripts.fireball_draw:main"
+fireball-single-chain-fit = "fireball.scripts.fireball_single_chain_fit:main"
+fireball-single-chain-draw = "fireball.scripts.fireball_single_chain_draw:main"
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = true 
+
+[tool.setuptools.packages.find]
+namespaces = true
+where = ["."]
+include = ["fireball", "fireball.*"]  # Discover all sub-packages inside the main package
+
+[tool.setuptools.package-data]
+fireball = [
+    "py.typed"
+]
+
+[tool.versioningit]
+default-version = "1+unknown"
+
+[tool.versioningit.format]
+distance = "{base_version}+{distance}.{vcs}{rev}"
+dirty = "{base_version}+{distance}.{vcs}{rev}.dirty"
+distance-dirty = "{base_version}+{distance}.{vcs}{rev}.dirty"
+
+[tool.versioningit.vcs]
+# The method key:
+method = "git"  # <- The method name
+# Parameters to pass to the method:
+match = ["*"]
+default-tag = "1.0.0"
+
+[tool.versioningit.write]
+file = "fireball/_version.py"

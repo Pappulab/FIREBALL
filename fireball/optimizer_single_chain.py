@@ -9,7 +9,7 @@ Updated Spring 2021 by Alex Holehouse and Mina Farag
 import numpy as np
 import pandas as pd
 from scipy.optimize import minimize
-from . import partial_single_chain
+from fireball import partial_single_chain
 import time
 
 # Function optimizer performs the optimization

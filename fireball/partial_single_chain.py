@@ -12,8 +12,8 @@ import numpy as np
 import pandas as pd
 from scipy import optimize
 
-from .fireballexceptions import FireballException
-from . import config
+from fireball.fireballexceptions import FireballException
+from fireball import config
 
 def residual_finder(free_parameter_list, fixed_parameter_list, free_parameter_checklist,
                     mode, data_array, temperature_offset, silent = False, plotter=False,

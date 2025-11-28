@@ -9,7 +9,7 @@ Updated Spring 2021 by Alex Holehouse and Mina Farag
 # import required packages
 import numpy as np
 
-from .fireballexceptions import FireballException
+from fireball.fireballexceptions import FireballException
 
 # The next few lines modify dilute_array and dense_array in case the value of crit_phi is
 # larger than a value in dense_array or smaller than a value in dilute_array
